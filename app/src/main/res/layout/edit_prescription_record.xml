@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/MedicationPlanSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/MedicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:hint="Medicine Name"/>
+
+        <Spinner
+            android:id="@+id/Duration_Chooser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+        <Spinner
+            android:id="@+id/DosageIntake_Chooser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
