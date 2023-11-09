@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".Signup">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:text="Welcome Back!"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:paddingTop="50dp"
+        android:textColor="#000000"
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login to continue the jounry"
+        android:textAlignment="center"
+        android:textSize="18dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons8google48"
+                android:contentDescription="phone Icon"
+                android:background="#00D6D3D3"
+                android:onClick="onImageButtonClick"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageButton1"
+                android:layout_marginStart="8dp"
+                android:text="Google"
+                android:textColor="#000000"
+                android:background="D6D3D3"
+                android:textSize="17dp"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons8phone48"
+                android:contentDescription="phone Icon"
+                android:background="#00D6D3D3"
+                android:onClick="onImageButtonClick"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageButton"
+                android:layout_marginStart="8dp"
+                android:text="Phone number"
+                android:textColor="#000000"
+                android:background="D6D3D3"
+                android:textSize="13dp"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.07"
+        android:hint="Name"
+        android:background="@drawable/custom_edittext"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:inputType="text" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.07"
+        android:layout_marginTop="10dp"
+        android:hint="Email"
+        android:background="@drawable/custom_edittext"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:inputType="text" />
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.07"
+        android:text="Signin"
+        android:textSize="19dp"
+        android:layout_gravity="center"
+        android:background="@drawable/custom_edittext"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textColor="#4CAF50"
+        android:text="Forgot Password"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        tools:ignore="RtlCompat" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.265"
+        android:textColor="#4CAF50"
+        android:text="Dont have an account? Sign up"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:gravity="center_vertical"
+        tools:ignore="RtlCompat" />
+
+
+
+</LinearLayout>
