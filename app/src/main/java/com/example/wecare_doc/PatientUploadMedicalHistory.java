@@ -1,4 +1,4 @@
-package com.example.project_screens;
+package com.example.wecare_doc;
 
 import androidx.appcompat.app.AppCompatActivity;
 

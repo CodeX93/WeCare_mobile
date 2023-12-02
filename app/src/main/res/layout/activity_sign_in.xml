@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login to continue the jounry"
+        android:text="Login to continue the journey"
         android:textAlignment="center"
         android:textSize="18dp"/>
     <LinearLayout
@@ -55,7 +55,6 @@
                 android:layout_marginStart="8dp"
                 android:text="Google"
                 android:textColor="#000000"
-                android:background="D6D3D3"
                 android:textSize="17dp"
                 android:layout_centerVertical="true"
                 />
@@ -89,7 +88,6 @@
                 android:layout_marginStart="8dp"
                 android:text="Phone number"
                 android:textColor="#000000"
-                android:background="D6D3D3"
                 android:textSize="13dp"
                 android:layout_centerVertical="true"
                 />
@@ -145,14 +143,15 @@
 
 
     <TextView
+        android:id="@+id/signupbtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.265"
-        android:textColor="#4CAF50"
+        android:gravity="center_vertical"
         android:text="Dont have an account? Sign up"
         android:textAlignment="center"
+        android:textColor="#4CAF50"
         android:textSize="18dp"
-        android:gravity="center_vertical"
         tools:ignore="RtlCompat" />
 
 

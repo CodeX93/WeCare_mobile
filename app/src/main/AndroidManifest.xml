@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,11 +16,8 @@
         tools:targetApi="34">
         <activity
             android:name=".MyChat"
-            android:exported="true"> <!-- Set to true if this is a launcher activity -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false"> <!-- Set to true if this is a launcher activity -->
+
         </activity>
         <activity
             android:name=".ChangePrescription"
@@ -34,6 +33,45 @@
             android:exported="false" />
         <activity
             android:name=".MyPatient"
+            android:exported="false" />
+        <activity
+            android:name=".PatiendDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".PatientNotificationScreen"
+            android:exported="false" />
+        <activity
+            android:name=".PatientViewsAppointments"
+            android:exported="false" />
+        <activity
+            android:name=".PatientAppointmentConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".PatientBookAppointment"
+            android:exported="false" />
+        <activity
+            android:name=".PatientviewDoctors"
+            android:exported="false" />
+        <activity
+            android:name=".PatientUploadMedicalHistory"
+            android:exported="false" />
+        <activity
+            android:name=".PatientMedicalHistory"
+            android:exported="false" />
+        <activity
+            android:name=".PatientSideMenu"
+            android:exported="false" />
+        <activity
+            android:name=".SignIn"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Signup"
             android:exported="false" />
     </application>
 

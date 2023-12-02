@@ -64,18 +64,18 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:entries="@array/report_types"
-        android:background="@null"
-        android:layout_margin="10dp"
-        android:padding="8dp"
-        android:prompt="@string/select_report"
-        android:popupBackground="#FFFFFF"
-        android:gravity="start"
-        android:textSize="16sp" />
+<!--    <Spinner-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="0.1"-->
+<!--        android:entries="@array/report_types"-->
+<!--        android:background="@null"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:padding="8dp"-->
+<!--        android:prompt="@string/select_report"-->
+<!--        android:popupBackground="#FFFFFF"-->
+<!--        android:gravity="start"-->
+<!--        android:textSize="16sp" />-->
 
 
    <TextView

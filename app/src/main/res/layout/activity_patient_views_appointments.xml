@@ -1,0 +1,153 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    tools:context=".PatientMedicalHistory">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_weight="0.995"
+        android:layout_height="0dp">
+
+
+        <!-- Menu and Heading -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- Menu Icon -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/baseline_menu_24"
+                android:scaleType="centerCrop" />
+
+            <!-- Text - History -->
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Appointments"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/baseline_add_24"
+                android:scaleType="centerCrop" />
+
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:layout_margin="10dp">
+
+            <!-- CalendarView widget -->
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFDAB9"
+                android:firstDayOfWeek="1"
+                android:headerBackground="#3498DB"
+                android:showWeekNumber="false"
+                android:focusedMonthDateColor="#1ABC9C"
+                android:selectedWeekBackgroundColor="#34495E"
+                android:unfocusedMonthDateColor="#BDC3C7"
+                android:weekNumberColor="#3498DB"
+                android:weekSeparatorLineColor="#E74C3C" />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:text="Appointments Today"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.15"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:background="@drawable/gret_rounded"
+            android:padding="16dp">
+
+            <!-- Heading -->
+            <TextView
+                android:id="@+id/textViewHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Appointment"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:layout_gravity="start" />
+
+            <!-- Doctor's Name and Appointment Time -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <!-- Doctor's Name -->
+                <TextView
+                    android:id="@+id/textViewDoctorName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dr. Clerk"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:layout_gravity="start" />
+
+                <!-- Appointment Time -->
+                <TextView
+                    android:id="@+id/textViewAppointmentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3:15"
+                    android:textSize="18sp"
+                    android:textColor="#FF0000"
+                    android:layout_gravity="end" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_navigation_menu" />
+
+
+</LinearLayout>

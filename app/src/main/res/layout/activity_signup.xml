@@ -33,32 +33,30 @@
         android:padding="10dp">
 
         <RelativeLayout
+            android:id="@+id/googlebtn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="16dp">
 
             <ImageButton
                 android:id="@+id/imageButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icons8google48"
-                android:contentDescription="phone Icon"
                 android:background="#00D6D3D3"
+                android:contentDescription="phone Icon"
                 android:onClick="onImageButtonClick"
-                />
+                android:src="@drawable/icons8google48" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageButton1"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imageButton1"
                 android:text="Google"
                 android:textColor="#000000"
-                android:background="D6D3D3"
-                android:textSize="17dp"
-                android:layout_centerVertical="true"
-                />
+                android:textSize="17dp" />
 
         </RelativeLayout>
 
@@ -67,32 +65,30 @@
             android:layout_height="match_parent"/>
 
         <RelativeLayout
+            android:id="@+id/phnbtn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="16dp">
 
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icons8phone48"
-                android:contentDescription="phone Icon"
                 android:background="#00D6D3D3"
+                android:contentDescription="phone Icon"
                 android:onClick="onImageButtonClick"
-                />
+                android:src="@drawable/icons8phone48" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageButton"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imageButton"
                 android:text="Phone number"
                 android:textColor="#000000"
-                android:background="D6D3D3"
-                android:textSize="13dp"
-                android:layout_centerVertical="true"
-                />
+                android:textSize="13dp" />
 
         </RelativeLayout>
 
@@ -101,33 +97,37 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.07"
-        android:hint="Name"
-        android:background="@drawable/custom_edittext"
-        android:padding="10dp"
         android:layout_margin="10dp"
-        android:inputType="text" />
+        android:layout_weight="0.07"
+        android:background="@drawable/custom_edittext"
+        android:hint="Name"
+        android:inputType="text"
+        android:padding="10dp" />
 
     <EditText
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         android:layout_weight="0.07"
+        android:background="@drawable/custom_edittext"
         android:hint="Email"
-        android:background="@drawable/custom_edittext"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:inputType="text" />
+        android:inputType="text"
+        android:padding="10dp" />
+
     <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.07"
-        android:hint="Password"
-        android:background="@drawable/custom_edittext"
-        android:padding="10dp"
         android:layout_margin="10dp"
-        android:inputType="text" />
+        android:layout_weight="0.07"
+        android:background="@drawable/custom_edittext"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp" />
 
     <CheckBox
         android:id="@+id/checkboxAgree"
@@ -139,24 +139,26 @@
         android:textColor="#000000" />
 
     <Button
+        android:id="@+id/signupbtn"
         android:layout_width="220dp"
         android:layout_height="0dp"
-        android:layout_weight="0.07"
-        android:text="Signup"
-        android:textSize="19dp"
         android:layout_gravity="center"
-        android:background="@drawable/custom_edittext"/>
+        android:layout_weight="0.07"
+        android:background="@drawable/custom_edittext"
+        android:text="Signup"
+        android:textSize="19dp" />
 
 
     <TextView
+        android:id="@+id/lgnin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.365"
-        android:textColor="#4CAF50"
+        android:gravity="center_vertical"
         android:text="Already have an account? Sign in"
         android:textAlignment="center"
+        android:textColor="#4CAF50"
         android:textSize="18dp"
-        android:gravity="center_vertical"
         tools:ignore="RtlCompat" />
 
 
