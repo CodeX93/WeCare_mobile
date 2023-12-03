@@ -104,7 +104,9 @@ public class PatientviewDoctors extends AppCompatActivity {
                 ad.setDotorName(document.get("name").toString());
                 ad.setDoctorSpeciality(document.get("speciality").toString());
                 ad.setRating( Integer.parseInt(document.get("rating").toString()));
-
+                ad.setExperience(document.get("experience").toString());
+                ad.setInformation(document.get("information").toString());
+                ad.setPatients(document.get("patients").toString());
 
                 docList.add(ad);
             }

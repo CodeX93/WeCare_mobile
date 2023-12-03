@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,16 +48,14 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
 
 
 
-//        holder.navigator.setOnClickListener(v -> {
-//            String receiverUid = contact.getUserId();
-//
-//            Intent intent = new Intent(context, ChatDetailsActivity.class);
-//            intent.putExtra("receiverUid", receiverUid);
-//            intent.putExtra("receiverUsername", contact.getUsername());
-//            intent.putExtra("receiverProfileUrl", User.currentUser.getMainProfileUrl());
-//            context.startActivity(intent);
-//
-//        });
+        holder.row.setOnClickListener(v -> {
+
+            Intent intent = new Intent(context, PatientBookAppointment.class);
+            // Pass the entire Doctor object with the Intent
+            intent.putExtra("selectedDoctor", contact);
+            context.startActivity(intent);
+
+        });
 
     }
 
@@ -68,11 +67,13 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
     public static class DoctorViewHolder extends RecyclerView.ViewHolder {
 
         TextView doctorName, doctorSpeciality;
+        LinearLayout row;
 
         public DoctorViewHolder(@NonNull View itemView) {
             super(itemView);
             doctorName = itemView.findViewById(R.id.doctorName);
             doctorSpeciality = itemView.findViewById(R.id.doctorSpeciality);
+            row = itemView.findViewById(R.id.row);
 
         }
     }

@@ -1,12 +1,17 @@
 package com.example.wecare_doc;
 
-public class Doctor {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
 
     public String dotorName;
     public String doctorSpeciality;
     public String uid;
-
     public int rating;
+
+    public String experience, patients, information;
 
     public Doctor(){
 
@@ -20,6 +25,30 @@ public class Doctor {
 
     public int getRating() {
         return rating;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getPatients() {
+        return patients;
+    }
+
+    public void setPatients(String patients) {
+        this.patients = patients;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public void setRating(int rating) {
