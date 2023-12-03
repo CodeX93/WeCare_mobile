@@ -8,54 +8,53 @@
     tools:context=".PatientMedicalHistory">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:weightSum="1"
         android:layout_width="match_parent"
-        android:layout_weight="0.995"
-        android:layout_height="0dp">
+        android:layout_height="672dp"
+        android:orientation="vertical"
+        android:weightSum="1">
 
 
         <!-- Menu and Heading -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="56dp"
             android:layout_weight="0.1"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            android:padding="16dp">
 
             <!-- Menu Icon -->
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/baseline_menu_24"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_menu_24" />
 
             <!-- Text - History -->
             <TextView
-                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:text="Doctor Details"
+                android:textColor="#000000"
                 android:textSize="23sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/baseline_keyboard_return_24"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_keyboard_return_24" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="15dp"
-            android:background="@drawable/custom_edittext"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
             android:layout_weight="0.2"
+            android:background="@drawable/custom_edittext"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -72,49 +71,60 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/baseline_person_2_24"/>
+                        android:src="@drawable/baseline_person_2_24" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
                         <TextView
+                            android:id="@+id/doctorName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Dr Umer"
-                            android:textSize="25dp"
                             android:textColor="#000000"
-                            android:textStyle="bold"/>
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
+
                         <TextView
+                            android:id="@+id/doctorSpeciality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Drugs Specialist"
-                            android:textSize="15dp"
                             android:textColor="#000000"
-                            android:textStyle="italic"/>
+                            android:textSize="15dp"
+                            android:textStyle="italic" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:gravity="right"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:gravity="right">
+
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
+                                android:src="@drawable/baseline_star_24" />
+
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
+                                android:src="@drawable/baseline_star_24" />
+
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
+                                android:src="@drawable/baseline_star_24" />
+
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
+                                android:src="@drawable/baseline_star_24" />
+
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
+                                android:src="@drawable/baseline_star_24" />
                         </LinearLayout>
 
 
@@ -125,97 +135,99 @@
 
 
             </LinearLayout>
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.34"
-                android:padding="5dp"
-                android:text="Message"
-                android:layout_gravity="center"/>
-
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="25dp"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="0.15"
             android:background="@drawable/custom_edittext"
-            android:weightSum="1"
-            android:layout_weight="0.15">
+            android:padding="10dp"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_weight="0.33"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:background="@drawable/gret_rounded"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:layout_weight="0.33"
+                android:background="@drawable/gret_rounded"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/patients"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:text="1002"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="Patients"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="0.33"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:background="@drawable/gret_rounded"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:layout_weight="0.33"
+                android:background="@drawable/gret_rounded"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/experience"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:text="4"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="Years exp"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="0.33"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:background="@drawable/gret_rounded"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:layout_weight="0.33"
+                android:background="@drawable/gret_rounded"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/rating"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:text="4237"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="Rating"
-                    android:textSize="20dp"
                     android:textAlignment="center"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
@@ -223,29 +235,92 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:orientation="vertical"
+            android:layout_height="20dp"
+            android:layout_weight="0.3"
             android:background="#FFFFFF"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Doctor Information"
+                android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/information"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:text="Dr. John Doe fhoiaianf fhaiofhahfoia ghaoign oiabgioabgfnioanf fafhapofpoaif fhapofnoiabfioa faf9afihoiafiofafninf"
-                android:textSize="16sp"
-                android:textColor="#006400" />
+                android:textColor="#006400"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/select_date" />
+
+            <TextView
+                android:id="@+id/selectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Select Date"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/select_time" />
+
+            <TextView
+                android:id="@+id/selectTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Select Time"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bookBtn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="Book"
+            android:layout_marginBottom="-100dp"
+
+            />
 
 
     </LinearLayout>

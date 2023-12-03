@@ -18,7 +18,7 @@
         <!-- Menu and Heading -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="20dp"
             android:layout_weight="0.1"
             android:orientation="horizontal"
             android:padding="16dp"
@@ -46,22 +46,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="15dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/custom_edittext"
             android:layout_weight="0.1">
 
             <ImageView
+                android:id="@+id/searchIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/baseline_saved_search_24"
                 android:layout_gravity="center_vertical"/>
             <EditText
-                android:layout_width="260dp"
+                android:id="@+id/searchField"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:hint="Search"
                 android:background="#FFFFFF"
                 android:layout_margin="5dp"/>
             <ImageView
+                android:id="@+id/crossIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/baseline_cancel_presentation_24"
@@ -134,124 +137,11 @@
                 android:orientation="vertical"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_margin="15dp"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/doctorsRV"
                     android:layout_width="match_parent"
-                    android:background="@drawable/custom_edittext"
-                    android:layout_height="80dp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/baseline_person_2_24"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Dr Umer"
-                            android:textSize="25dp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Drugs Specialist"
-                            android:textSize="15dp"
-                            android:textColor="#000000"
-                            android:textStyle="italic"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:gravity="right"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_margin="15dp"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/custom_edittext"
-                    android:layout_height="80dp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/baseline_person_2_24"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Dr Umer"
-                            android:textSize="25dp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Drugs Specialist"
-                            android:textSize="15dp"
-                            android:textColor="#000000"
-                            android:textStyle="italic"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:gravity="right"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/baseline_star_24"/>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
