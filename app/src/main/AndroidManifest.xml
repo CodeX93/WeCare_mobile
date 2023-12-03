@@ -14,15 +14,14 @@
         tools:targetApi="34">
         <activity
             android:name=".MyChat"
-            android:exported="true"> <!-- Set to true if this is a launcher activity -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false"> <!-- Set to true if this is a launcher activity -->
+
         </activity>
         <activity
             android:name=".ChangePrescription"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".PatientDetail"
             android:exported="false" />
@@ -34,7 +33,12 @@
             android:exported="false" />
         <activity
             android:name=".MyPatient"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
