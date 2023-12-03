@@ -15,6 +15,9 @@ public class PatientAppointmentConfirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_appointment_confirmation);
 
+        viewAppointments=findViewById(R.id.viewAppointments);
+        scheduleAnother=findViewById(R.id.scheduleAnother);
+
         viewAppointments.setOnClickListener(v -> {
             Intent intent=new Intent(this, PatientViewsAppointments.class);
             startActivity(intent);

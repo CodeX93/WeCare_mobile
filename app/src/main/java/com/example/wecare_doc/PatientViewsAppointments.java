@@ -1,7 +1,9 @@
 package com.example.wecare_doc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ public class PatientViewsAppointments extends AppCompatActivity {
     private AppointmentAdapter appAdapter;
     List<Appointment> appList;
 
+    ImageView addAppointment;
+
     CalendarView calendarView;
 
     @Override
@@ -35,6 +39,8 @@ public class PatientViewsAppointments extends AppCompatActivity {
 
         appList = new ArrayList<>();
 
+        addAppointment=findViewById(R.id.addAppointment);
+
         calendarView=findViewById(R.id.calendarView);
 
         recyclerView = findViewById(R.id.appointmentsRV);
@@ -43,6 +49,11 @@ public class PatientViewsAppointments extends AppCompatActivity {
         recyclerView.setAdapter(appAdapter);
 
         fetchAllAppointmentsFromFirestore();
+
+        addAppointment.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PatientviewDoctors.class);
+            startActivity(intent);
+        });
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Convert selected date to the desired format ("dd/MM/yyyy")
