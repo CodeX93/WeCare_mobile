@@ -31,4 +31,15 @@ public class ForgotPasswordFragment extends BottomSheetDialogFragment {
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Customize the behavior of the BottomSheetDialogFragment
+        if (getDialog() != null) {
+            getDialog().getWindow().setDimAmount(0.5f); // Adjust dim amount as needed
+            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
 }
+
