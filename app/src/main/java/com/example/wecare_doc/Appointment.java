@@ -1,14 +1,28 @@
 package com.example.wecare_doc;
 
-public class Appointment {
+import java.io.Serializable;
 
-    public String date, time, doctorUid, patientUid;
+public class Appointment implements Serializable {
 
-    public Appointment(String date, String time, String doctorUid, String patientUid) {
+    public String date, time, doctorUid, patientUid, doctorName;
+
+    public Appointment(){
+
+    }
+    public Appointment(String date, String time, String doctorUid, String patientUid, String doctorName) {
         this.date = date;
         this.time = time;
         this.doctorUid = doctorUid;
         this.patientUid = patientUid;
+        this.doctorName=doctorName;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public String getDate() {

@@ -72,9 +72,10 @@ public class PatientBookAppointment extends AppCompatActivity {
             // You need to retrieve the doctorUid and patientUid from wherever you store them
             String doctorUid = selectedDoctor.getUid();
             String patientUid = "currentPatientUid"; // Replace with the actual patientUid
+            String doctorName = selectedDoctor.getDotorName();
 
             // Create a new Appointment object
-            Appointment newAppointment = new Appointment(selectedDate, selectedTime, doctorUid, patientUid);
+            Appointment newAppointment = new Appointment(selectedDate, selectedTime, doctorUid, patientUid, doctorName);
 
             // Add the new appointment to Firebase Firestore
             addAppointmentToFirestore(newAppointment);
@@ -94,6 +95,8 @@ public class PatientBookAppointment extends AppCompatActivity {
                 .addOnSuccessListener(documentReference -> {
                     // Handle success, e.g., show a success message
                     Toast.makeText(this, "Appointment booked successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(this, PatientAppointmentConfirmation.class);
+                    startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure, e.g., show an error message
