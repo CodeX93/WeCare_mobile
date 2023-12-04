@@ -71,8 +71,10 @@ public class PatiendDashboard extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.menuItemLogout) {
             logout();
-        } else {
-            // Handle other menu items if needed
+        } else if (itemId == R.id.menuItemAppointments) {
+            startActivity(new Intent(PatiendDashboard.this, PatientViewsAppointments.class));
+        }else if(itemId == R.id.menuItemMedicalHistory){
+            startActivity(new Intent(PatiendDashboard.this, PatientMedicalHistory.class));
         }
         drawerLayout.closeDrawer(Gravity.LEFT);
     }

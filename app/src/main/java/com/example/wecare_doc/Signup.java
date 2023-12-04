@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,8 +30,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
 
@@ -43,6 +48,8 @@ public class Signup extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,8 @@ public class Signup extends AppCompatActivity {
         phone = findViewById(R.id.imageButton);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        firestore = FirebaseFirestore.getInstance();
+
 
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,27 +154,45 @@ public class Signup extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             if (user != null) {
                                 // Save user data to the database
-                                saveUserDataToDatabase(user.getUid(), name.getText().toString().trim(), userEmail);
-                            }
+                                saveUserDataToDatabase(user.getUid(), name.getText().toString(), userEmail);
 
-                            Toast.makeText(Signup.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Signup.this, PatiendDashboard.class));
-                            finish();
+                                Toast.makeText(Signup.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(Signup.this, "User is null", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             // If sign up fails, display a message to the user.
                             Toast.makeText(Signup.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("Signup", "onComplete: Authentication failed", task.getException()); // Add this line for logging
                         }
                     }
                 });
+
     }
 
     private void saveUserDataToDatabase(String userId, String userName, String userEmail) {
         // Create a user object with name and email
-        User user = new User(userId, userName, userEmail);
+        Map<String, Object> user = new HashMap<>();
+        user.put("id", userId);
+        user.put("name", userName);
+        user.put("email", userEmail);
 
-        // Save the user to the "users" node in the database
-        databaseReference.child(userId).setValue(user);
+        // Add the user to the "users" collection in Firestore
+        firestore.collection("users")
+                .document(userId)
+                .set(user)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("SaveUserData", "User data saved successfully");
+                    startActivity(new Intent(Signup.this, PatiendDashboard.class));
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("SaveUserData", "Error saving user data", e);
+                    Toast.makeText(Signup.this, "Error saving user data", Toast.LENGTH_SHORT).show();
+                });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
