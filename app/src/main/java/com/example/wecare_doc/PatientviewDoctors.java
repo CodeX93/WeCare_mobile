@@ -107,6 +107,7 @@ public class PatientviewDoctors extends AppCompatActivity {
                 ad.setExperience(document.get("experience").toString());
                 ad.setInformation(document.get("information").toString());
                 ad.setPatients(document.get("patients").toString());
+                ad.setFcmToken(document.get("fcmToken").toString());
 
                 docList.add(ad);
             }

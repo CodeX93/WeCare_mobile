@@ -4,20 +4,35 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PatientBookAppointment extends AppCompatActivity {
 
@@ -142,5 +157,76 @@ public class PatientBookAppointment extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         selectTime.setText(sdf.format(selectedTime.getTime()));
     }
+
+    public static void sendNotification(String message, String receiverUid, String currentUid, String currentUsername){
+
+        // current username, message, currentUserId, otherUserToken
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = db.collection("users");
+        DocumentReference userDocument = usersCollection.document(receiverUid);
+
+        userDocument.get().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()) {
+                DocumentSnapshot document = task1.getResult();
+                if (document.exists()) {
+                    String fcmToken = document.getString("fcmtoken");
+
+                    try {
+                        JSONObject object = new JSONObject();
+
+                        JSONObject notfObject = new JSONObject();
+                        notfObject.put("title", currentUsername);
+                        notfObject.put("body", message);
+
+                        JSONObject dataObject = new JSONObject();
+                        dataObject.put("userId", currentUid);
+
+                        object.put("notification", notfObject);
+                        object.put("data", dataObject);
+                        object.put("to", fcmToken);
+
+                        callApi(object);
+
+
+
+
+                    }catch (Exception e){
+
+                    }
+
+                }
+            }
+        });
+    }
+
+    private static void callApi(JSONObject object){
+        MediaType JSON = MediaType.get("application/json");
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://fcm.googleapis.com/fcm/send";
+
+        RequestBody body = RequestBody.create(object.toString(), JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization", "Bearer AAAABKVQI3E:APA91bEnilLLDPJY-Uc985pk3E-CQbYpXKQwPGXYQ4jLJA5O9XsWRWFimy-44HR9VcA8oobJC-kaXRfnOfhXO6-_gDs5y8zxKF0jntmDfFGrj94g5Pw3Fy0TYklYIfISMKMqnT13c3j1")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Log.i("notification sent", object.toString());
+            }
+        });
+
+
+
+    }
+
 
 }

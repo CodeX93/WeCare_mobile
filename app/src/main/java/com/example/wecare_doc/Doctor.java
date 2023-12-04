@@ -11,6 +11,7 @@ public class Doctor implements Serializable {
     public String uid;
     public int rating;
 
+    public String fcmToken;
     public String experience, patients, information;
 
     public Doctor(){
@@ -21,6 +22,14 @@ public class Doctor implements Serializable {
         this.dotorName = dotorName;
         this.doctorSpeciality = doctorSpeciality;
         this.uid = uid;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     public int getRating() {
