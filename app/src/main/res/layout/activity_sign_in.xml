@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Login to continue the journey"
         android:textAlignment="center"
+        android:textColor="#705E5E"
         android:textSize="18dp"/>
     <LinearLayout
         android:layout_width="match_parent"
