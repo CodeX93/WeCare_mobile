@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167641995751",
+    "project_id": "wecare-webpatient",
+    "storage_bucket": "wecare-webpatient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167641995751:android:f1f5fc9500ba9b0a530542",
+        "android_client_info": {
+          "package_name": "com.example.wecare_doc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6yzHWgFiANIdfAadKUlAtqGjEUswcNWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
