@@ -1,182 +1,199 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     tools:context=".PatiendDashboard">
 
+    <!-- Content View -->
     <LinearLayout
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:weightSum="1"
-        android:layout_width="match_parent"
-        android:layout_weight="0.995"
-        android:layout_height="0dp">
+        android:layout_height="match_parent">
 
-
-        <!-- Menu and Heading -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
-
-            <!-- Menu Icon -->
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/baseline_menu_24"
-                android:scaleType="centerCrop" />
-
-            <!-- Text - History -->
-            <TextView
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dashboard"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
-
-
-
-        </LinearLayout>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:layout_margin="10dp"
-            android:background="@drawable/orange_rounded"
-            android:padding="16dp">
-
-            <!-- Text on the left side -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <!-- "Good Morning" in red -->
-                <TextView
-                    android:id="@+id/textViewGreeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Good Morning"
-                    android:textSize="18sp"
-                    android:textColor="#FF0000"/>
-
-                <!-- "Mr John" in black -->
-                <TextView
-                    android:id="@+id/textViewName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mr John"
-                    android:textSize="18sp"
-                    android:textColor="#000000"/>
-
-                <!-- "Have a nice day" in smaller font -->
-                <TextView
-                    android:id="@+id/textViewWish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Have a nice day"
-                    android:textSize="14sp"
-                    android:textColor="#000000"/>
-            </LinearLayout>
-
-            <!-- Image on the right side -->
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/baseline_wb_sunny_24"
-                android:layout_marginLeft="16dp"/>
-
-        </RelativeLayout>
-
-       <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_margin="10dp"
-            android:text="You Have Appointments Today"/>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
             android:orientation="vertical"
-            android:layout_margin="5dp"
-            android:background="@drawable/gret_rounded"
-            android:padding="16dp">
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_weight="0.995"
+            android:layout_height="0dp">
 
-            <!-- Heading -->
-            <TextView
-                android:id="@+id/textViewHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Appointment"
-                android:textSize="15sp"
-                android:textColor="#000000"
-                android:layout_gravity="start" />
 
-            <!-- Doctor's Name and Appointment Time -->
+            <!-- Menu and Heading -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-                <!-- Doctor's Name -->
+                <!-- Menu Icon -->
+                <ImageView
+                    android:id="@+id/menuToggleBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_menu_24" />
+
+                <!-- Text - History -->
                 <TextView
-                    android:id="@+id/textViewDoctorName"
-                    android:layout_width="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Dr. Clerk"
+                    android:text="Dashboard"
+                    android:textSize="23sp"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textColor="#000000" />
+
+
+
+            </LinearLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:layout_margin="10dp"
+                android:background="@drawable/orange_rounded"
+                android:padding="16dp">
+
+                <!-- Text on the left side -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <!-- "Good Morning" in red -->
+                    <TextView
+                        android:id="@+id/textViewGreeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Good Morning"
+                        android:textSize="18sp"
+                        android:textColor="#FF0000"/>
+
+                    <!-- "Mr John" in black -->
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mr John"
+                        android:textSize="18sp"
+                        android:textColor="#000000"/>
+
+                    <!-- "Have a nice day" in smaller font -->
+                    <TextView
+                        android:id="@+id/textViewWish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Have a nice day"
+                        android:textSize="14sp"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+                <!-- Image on the right side -->
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/baseline_wb_sunny_24"
+                    android:layout_marginLeft="16dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_margin="10dp"
+                android:text="You Have Appointments Today"/>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.15"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                android:background="@drawable/gret_rounded"
+                android:padding="16dp">
+
+                <!-- Heading -->
+                <TextView
+                    android:id="@+id/textViewHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Appointment"
+                    android:textSize="15sp"
                     android:textColor="#000000"
                     android:layout_gravity="start" />
 
-                <!-- Appointment Time -->
-                <TextView
-                    android:id="@+id/textViewAppointmentTime"
-                    android:layout_width="wrap_content"
+                <!-- Doctor's Name and Appointment Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3:15"
-                    android:textSize="18sp"
-                    android:textColor="#FF0000"
-                    android:layout_gravity="end" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <!-- Doctor's Name -->
+                    <TextView
+                        android:id="@+id/textViewDoctorName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dr. Clerk"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:layout_gravity="start" />
+
+                    <!-- Appointment Time -->
+                    <TextView
+                        android:id="@+id/textViewAppointmentTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3:15"
+                        android:textSize="18sp"
+                        android:textColor="#FF0000"
+                        android:layout_gravity="end" />
+                </LinearLayout>
+
             </LinearLayout>
+
 
         </LinearLayout>
 
-
-
-
-
-
+        <!-- Bottom Navigation Bar -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
-    <!-- Bottom Navigation Bar -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_navigation_menu" />
+    <!-- Left Drawer View -->
+    <!-- Inside your DrawerLayout -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/drawer_menu" />
 
 
-</LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -13,14 +13,7 @@
         }
       },
       "oauth_client": [
-        {
-          "client_id": "19953361777-3nivb5v917lrq3kdnnbdtedrge6snhul.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.wecare_doc",
-            "certificate_hash": "4365c38882061fcf08f4afe1388035262dbcd37b"
-          }
-        },
+        
         {
           "client_id": "19953361777-2ec3ve5k6s185c0blvq3skdd3fs4most.apps.googleusercontent.com",
           "client_type": 3
