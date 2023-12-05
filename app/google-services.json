@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19953361777",
+    "project_id": "smd-final-project-bb521",
+    "storage_bucket": "smd-final-project-bb521.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19953361777:android:b2176ba862095dd4d1ccd0",
+        "android_client_info": {
+          "package_name": "com.example.wecare_doc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19953361777-2ec3ve5k6s185c0blvq3skdd3fs4most.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHgMQg1I_U_YOfLY-_u88uJFdJPjjQQcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19953361777-2ec3ve5k6s185c0blvq3skdd3fs4most.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
