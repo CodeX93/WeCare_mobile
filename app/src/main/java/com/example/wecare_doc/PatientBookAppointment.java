@@ -97,7 +97,7 @@ public class PatientBookAppointment extends AppCompatActivity {
             // Create a new Appointment object
             Appointment newAppointment = new Appointment(selectedDate, selectedTime, doctorUid, patientUid, doctorName);
 
-            String complaint = getComplainFromDialog();
+            String complaint = showComplaintDialog();
             // Add the new appointment to Firebase Firestore
             addAppointmentToFirestore(newAppointment, complaint);
         });
@@ -134,6 +134,9 @@ public class PatientBookAppointment extends AppCompatActivity {
                 .addOnSuccessListener(documentReference -> {
                     // Handle success, e.g., show a success message
                     Toast.makeText(this, "Appointment booked successfully", Toast.LENGTH_SHORT).show();
+
+                    sendNotification();
+
                     Intent intent=new Intent(this, PatientAppointmentConfirmation.class);
                     startActivity(intent);
                 })
@@ -143,13 +146,13 @@ public class PatientBookAppointment extends AppCompatActivity {
                 });
     }
 
-    private String getComplainFromDialog() {
-        final String[] complain = {""};
-
-        // Create an alert dialog with an EditText
+    private String showComplaintDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Complaint");
 
+        final String[] userComplaint = {"no complain"};
+
+        // Set up the layout for the dialog
         final EditText input = new EditText(this);
         builder.setView(input);
 
@@ -157,7 +160,8 @@ public class PatientBookAppointment extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                complain[0] = input.getText().toString();
+                userComplaint[0] = input.getText().toString();
+
             }
         });
 
@@ -171,7 +175,8 @@ public class PatientBookAppointment extends AppCompatActivity {
         // Show the dialog
         builder.show();
 
-        return complain[0];
+        return userComplaint[0];
+
     }
 
     private String getDayOfWeek() {
@@ -250,45 +255,24 @@ public class PatientBookAppointment extends AppCompatActivity {
         selectTime.setText(sdf.format(selectedTime.getTime()));
     }
 
-    public static void sendNotification(String message, String receiverUid, String currentUid, String currentUsername){
+    public static void sendNotification(){
 
-        // current username, message, currentUserId, otherUserToken
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersCollection = db.collection("users");
-        DocumentReference userDocument = usersCollection.document(receiverUid);
+        JSONObject object = new JSONObject();
 
-        userDocument.get().addOnCompleteListener(task1 -> {
-            if (task1.isSuccessful()) {
-                DocumentSnapshot document = task1.getResult();
-                if (document.exists()) {
-                    String fcmToken = document.getString("fcmtoken");
+        JSONObject notfObject = new JSONObject();
+        notfObject.put("title", "Appointment");
+        notfObject.put("body", "An appointment has been booked");
 
-                    try {
-                        JSONObject object = new JSONObject();
+        JSONObject dataObject = new JSONObject();
+        dataObject.put("userId", "sample");
 
-                        JSONObject notfObject = new JSONObject();
-                        notfObject.put("title", currentUsername);
-                        notfObject.put("body", message);
+        object.put("notification", notfObject);
+        object.put("data", dataObject);
+        object.put("to", "fcmtoken");
 
-                        JSONObject dataObject = new JSONObject();
-                        dataObject.put("userId", currentUid);
-
-                        object.put("notification", notfObject);
-                        object.put("data", dataObject);
-                        object.put("to", fcmToken);
-
-                        callApi(object);
+        callApi(object);
 
 
-
-
-                    }catch (Exception e){
-
-                    }
-
-                }
-            }
-        });
     }
 
     private static void callApi(JSONObject object){
