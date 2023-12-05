@@ -96,51 +96,7 @@
             android:layout_marginBottom="16dp"/>
         </RelativeLayout>
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
-            android:layout_margin="15dp"
-            android:background="@drawable/gret_rounded"
-            android:padding="16dp">
 
-            <!-- First Row: "You have an appointment today" in red -->
-            <TextView
-                android:id="@+id/textViewAppointmentMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="You have an appointment today"
-                android:textSize="18sp"
-                android:textColor="#FF0000"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-
-            <!-- Second Row: "Dr Clerk at 3:05" -->
-            <TextView
-                android:id="@+id/textViewAppointmentDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dr Clerk at 3:05"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:layout_below="@id/textViewAppointmentMessage"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"/>
-
-            <!-- Last Row: Current time in bottom right corner with smaller font -->
-            <TextView
-                android:id="@+id/textViewCurrentTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12:34 PM"
-                android:textSize="14sp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"/>
-        </RelativeLayout>
 
 
 
