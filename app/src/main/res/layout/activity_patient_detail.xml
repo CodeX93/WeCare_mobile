@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PatientDetail">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,17 +26,6 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:orientation="horizontal">
-
-        <!--         drawer-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:text="D"
-            android:padding="8dp"
-            android:layout_gravity="start"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -86,7 +83,37 @@
                         android:layout_height="wrap_content"
                         android:text="Disease Type"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/agelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <TextView
+                        android:id="@+id/Patient_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/patient_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <TextView
+                        android:id="@+id/Patient_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                     <Button
                         android:id="@+id/patient_Message_Btn"
                         android:layout_width="wrap_content"
@@ -252,6 +279,20 @@
          android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottomnavigation" />
 
 </RelativeLayout>
+<com.google.android.material.navigation.NavigationView
+android:id="@+id/nav_view"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_gravity="start"
+app:headerLayout="@layout/drawer_header"
+app:menu="@menu/left_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>

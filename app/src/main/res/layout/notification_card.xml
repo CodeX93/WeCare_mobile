@@ -16,7 +16,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/image_profile"
+            android:id="@+id/sender_image_profile"
             android:layout_width="100dp"
             android:layout_height="95dp"
 
@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/patient_name"
+                android:id="@+id/sender_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Person Name"
@@ -47,6 +47,19 @@
                 android:layout_height="wrap_content"
                 android:text="Notification Type"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            <TextView
+
+                android:id="@+id/notification_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            <TextView
+                android:id="@+id/notification_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification Content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
 
@@ -54,7 +67,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/text_time"
+            android:id="@+id/notification_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

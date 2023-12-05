@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+<TextView
+android:id="@+id/appointmentTime"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="14:00"
+android:textColor="#F9F9F9"
+    android:textStyle="bold"
+android:textSize="10sp"
+android:padding="8dp"
+    android:background="@drawable/appointmentslotshape" />
+    </LinearLayout>

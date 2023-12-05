@@ -6,7 +6,13 @@
     <item
         android:id="@+id/nav_patients"
         android:icon="@drawable/profile_picture"
-        android:title="My Patients" />
+        android:title="My Patients"
+
+        />
+    <item
+        android:id="@+id/nav_appointments"
+        android:icon="@drawable/appointment_icon"
+        android:title="My Appointments" />
 
     <item
         android:id="@+id/nav_Chats"
