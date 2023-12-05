@@ -1,0 +1,20 @@
+<!-- res/menu/drawer_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#333333"> <!-- Dark Grey Background -->
+
+    <item
+        android:id="@+id/menuItemMedicalHistory"
+        android:icon="@drawable/baseline_insert_drive_file_24"
+        android:title="My Medical History"/>
+
+    <item
+        android:id="@+id/menuItemAppointments"
+        android:icon="@drawable/baseline_person_3_24"
+        android:title="My Appointments"/>
+
+    <item
+        android:id="@+id/menuItemLogout"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="Logout"/>
+
+</menu>
