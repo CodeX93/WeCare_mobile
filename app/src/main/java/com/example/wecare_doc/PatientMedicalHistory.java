@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +67,39 @@ public class PatientMedicalHistory extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.menu_home) {
+                            // Switch to Home Fragment or Activity
+                            // Example: replaceFragment(new HomeFragment());
+                            Intent intent = new Intent(PatientMedicalHistory.this, PatiendDashboard.class);
+                            startActivity(intent);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_profile) {
+                            // Switch to Profile Fragment or Activity
+                            // Example: replaceFragment(new ProfileFragment());
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_calendar) {
+                            // Switch to Calendar Fragment or Activity
+                            // Example: replaceFragment(new CalendarFragment());
+                            Intent intent = new Intent(PatientMedicalHistory.this, PatientViewsAppointments.class);
+                            startActivity(intent);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_notification) {
+                            // Switch to Notification Fragment or Activity
+                            // Example: replaceFragment(new NotificationFragment());
+                            Intent intent = new Intent(PatientMedicalHistory.this, PatientNotificationScreen.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
         LinearLayout upload = findViewById(R.id.upload);
 
         upload.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +123,7 @@ public class PatientMedicalHistory extends AppCompatActivity {
         // Load medical history data
         loadMedicalHistoryData();
     }
+
 
     private void toggleDrawer() {
         if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
