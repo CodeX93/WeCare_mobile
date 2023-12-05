@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -83,9 +85,15 @@ public class PatientViewsAppointments extends AppCompatActivity {
             List<Appointment> fetchedAppointments = new ArrayList<>();
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 // Convert each document to an Appointment object
-                Appointment appointment = document.toObject(Appointment.class);
-
-                if (appointment != null && appointment.getPatientUid().equals("currentPatientUid")) {
+                Appointment appointment = new Appointment();
+                appointment.setDate(document.get("AppointmentDate").toString());
+                appointment.setTime(document.get("Time").toString());
+                appointment.setPatientUid(document.get("PatientId").toString());
+                appointment.setDoctorUid(document.get("DoctorId").toString());
+                appointment.setDoctorName(document.get("DoctorName").toString());
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                String currentUid = currentUser.getUid();
+                if (appointment != null && appointment.getPatientUid().equals("sample")) {
                     fetchedAppointments.add(appointment);
                 }
             }

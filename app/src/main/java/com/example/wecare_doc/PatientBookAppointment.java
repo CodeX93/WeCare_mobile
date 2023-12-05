@@ -1,7 +1,9 @@
 package com.example.wecare_doc;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +26,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,21 +97,40 @@ public class PatientBookAppointment extends AppCompatActivity {
             // Create a new Appointment object
             Appointment newAppointment = new Appointment(selectedDate, selectedTime, doctorUid, patientUid, doctorName);
 
+            String complaint = getComplainFromDialog();
             // Add the new appointment to Firebase Firestore
-            addAppointmentToFirestore(newAppointment);
+            addAppointmentToFirestore(newAppointment, complaint);
         });
 
     }
 
-    private void addAppointmentToFirestore(Appointment appointment) {
+    private void addAppointmentToFirestore(Appointment appointment, String complain) {
         // Initialize Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Reference to the "appointments" collection
         CollectionReference appointmentsRef = db.collection("appointments");
 
-        // Add a new document with a generated ID
-        appointmentsRef.add(appointment)
+        // Create a Map to represent the data
+        Map<String, Object> appointmentData = new HashMap<>();
+        appointmentData.put("AppointmentDate", appointment.getDate());
+        appointmentData.put("AppointmentDay", getDayOfWeek());
+        appointmentData.put("AppointmentType", "Physical");
+        appointmentData.put("AppointmentFee", "3000");
+        appointmentData.put("Complain", complain);
+        appointmentData.put("DoctorId",appointment.getDoctorUid() );
+        //appointmentData.put("PatientId",appointment.getPatientUid() );
+        appointmentData.put("PatientId","sample");
+        appointmentData.put("Status","Confirmed");
+        appointmentData.put("Timestamp", System.currentTimeMillis());
+        appointmentData.put("id", generateRandomId());
+        appointmentData.put("DoctorName", appointment.getDoctorName());
+        appointmentData.put("Time", appointment.getTime());
+
+
+
+        // Add a new document with a generated ID and the manually created map
+        appointmentsRef.add(appointmentData)
                 .addOnSuccessListener(documentReference -> {
                     // Handle success, e.g., show a success message
                     Toast.makeText(this, "Appointment booked successfully", Toast.LENGTH_SHORT).show();
@@ -118,6 +142,74 @@ public class PatientBookAppointment extends AppCompatActivity {
                     Toast.makeText(this, "Failed to book appointment. Please try again.", Toast.LENGTH_SHORT).show();
                 });
     }
+
+    private String getComplainFromDialog() {
+        final String[] complain = {""};
+
+        // Create an alert dialog with an EditText
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter Complaint");
+
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                complain[0] = input.getText().toString();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Show the dialog
+        builder.show();
+
+        return complain[0];
+    }
+
+    private String getDayOfWeek() {
+        // Get the current day of the week
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // Map the numeric day of the week to its corresponding name
+        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        return daysOfWeek[dayOfWeek - 1];
+    }
+
+    private String generateRandomId() {
+        // Generate a random UUID
+        return UUID.randomUUID().toString();
+    }
+
+
+//    private void addAppointmentToFirestore(Appointment appointment) {
+//        // Initialize Firestore
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        // Reference to the "appointments" collection
+//        CollectionReference appointmentsRef = db.collection("appointments");
+//
+//        // Add a new document with a generated ID
+//        appointmentsRef.add(appointment)
+//                .addOnSuccessListener(documentReference -> {
+//                    // Handle success, e.g., show a success message
+//                    Toast.makeText(this, "Appointment booked successfully", Toast.LENGTH_SHORT).show();
+//                    Intent intent=new Intent(this, PatientAppointmentConfirmation.class);
+//                    startActivity(intent);
+//                })
+//                .addOnFailureListener(e -> {
+//                    // Handle failure, e.g., show an error message
+//                    Toast.makeText(this, "Failed to book appointment. Please try again.", Toast.LENGTH_SHORT).show();
+//                });
+//    }
 
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(

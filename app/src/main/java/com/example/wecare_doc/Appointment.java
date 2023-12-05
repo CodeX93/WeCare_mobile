@@ -6,6 +6,8 @@ public class Appointment implements Serializable {
 
     public String date, time, doctorUid, patientUid, doctorName;
 
+
+
     public Appointment(){
 
     }
