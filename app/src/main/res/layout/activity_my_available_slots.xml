@@ -116,17 +116,11 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <Spinner
-                    android:id="@+id/change_appointment_slot_day_chooser"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/change_appointment_slot_month_chooser"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/DateChooser_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Slot on" />
             </LinearLayout>
 
             <TextView
@@ -137,6 +131,10 @@
                 android:textSize="20sp"
                 android:text="Already Booked Slot"
                 />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/availableslots_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <GridLayout
                 android:id="@+id/timeslot_grid"
                 android:layout_width="match_parent"
@@ -166,24 +164,23 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <Spinner
-                    android:id="@+id/existing_slotTime_Selector"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/button_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Old Time" />
 
-                <Spinner
-                    android:id="@+id/new_time_chooser"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-
+                <Button
+                    android:id="@+id/button_newtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select New Time" />
+            </LinearLayout>
                 <Spinner
                     android:id="@+id/new_slot_duration"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
+
 
         </LinearLayout> <!-- Closing tag of the ScrollView's direct LinearLayout child -->
     </ScrollView>

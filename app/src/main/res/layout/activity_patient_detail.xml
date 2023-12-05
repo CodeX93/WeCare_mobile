@@ -83,7 +83,37 @@
                         android:layout_height="wrap_content"
                         android:text="Disease Type"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/agelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <TextView
+                        android:id="@+id/Patient_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/patient_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <TextView
+                        android:id="@+id/Patient_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                     <Button
                         android:id="@+id/patient_Message_Btn"
                         android:layout_width="wrap_content"

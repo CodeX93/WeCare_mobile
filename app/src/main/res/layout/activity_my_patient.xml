@@ -60,7 +60,7 @@
         android:background="@color/system_green"
         app:tabIndicatorColor="@android:color/white"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/system_green">
+        app:tabTextColor="@color/highlight">
 
         <com.google.android.material.tabs.TabItem
             android:text="All"
