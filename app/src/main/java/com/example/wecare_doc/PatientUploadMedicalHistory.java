@@ -238,6 +238,8 @@ public class PatientUploadMedicalHistory extends AppCompatActivity {
             startActivity(new Intent(PatientUploadMedicalHistory.this, PatientViewsAppointments.class));
         } else if (itemId == R.id.menuItemMedicalHistory) {
             startActivity(new Intent(PatientUploadMedicalHistory.this, PatientMedicalHistory.class));
+        }else if(itemId == R.id.menuItemSwitch){
+            startActivity(new Intent(PatientUploadMedicalHistory.this, MyPatient.class));
         }
         drawerLayout.closeDrawer(Gravity.LEFT);
     }
