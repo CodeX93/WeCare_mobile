@@ -12,12 +12,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
@@ -47,8 +52,28 @@ public class MyPatient extends AppCompatActivity implements NavigationView.OnNav
         PatientAdapter = new AdapterPatient(this, patientList);
         recyclerView.setAdapter(PatientAdapter);
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        Log.d("FCM", "FCM Token: " + token);
+//                        Toast.makeText(MyPatient.this, token, Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 selectedStatus=null;
@@ -65,6 +90,8 @@ public class MyPatient extends AppCompatActivity implements NavigationView.OnNav
             public void onTabReselected(TabLayout.Tab tab) {
                 // Handle tab reselected if needed
             }
+
+
         });
 
         // Load patients from Firestore initially
@@ -77,7 +104,7 @@ public class MyPatient extends AppCompatActivity implements NavigationView.OnNav
             if (id == R.id.navigation_home) {
                 // Handle home navigation
             } else if (id == R.id.navigation_appointment) {
-                // Handle appointment navigation
+                startActivity(new Intent(MyPatient.this,MyAppointment.class));
                 finish();
             } else if (id == R.id.navigation_notifications) {
                 startActivity(new Intent(MyPatient.this, MyNotifications.class));

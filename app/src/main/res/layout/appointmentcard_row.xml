@@ -44,7 +44,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/disease_type"
+                android:id="@+id/complain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Disease Type"
