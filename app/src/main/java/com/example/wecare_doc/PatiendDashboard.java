@@ -7,22 +7,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatiendDashboard extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageView menuToggleBtn;
     FirebaseAuth firebaseAuth;
+
+    private RecyclerView recyclerView;
+    private AppointmentAdapter appAdapter;
+    TextView textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +45,26 @@ public class PatiendDashboard extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawerLayout);
         menuToggleBtn = findViewById(R.id.menuToggleBtn);
+
+        textview = findViewById(R.id.textViewName);
+
+
+
+        recyclerView = findViewById(R.id.appointmentsRV);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        appAdapter = new AppointmentAdapter(new ArrayList<>(), this);
+        recyclerView.setAdapter(appAdapter);
+
+        fetchAllAppointmentsFromFirestore();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            // User is signed in, update TextView with user's name
+            String userName = currentUser.getDisplayName();
+            textview.setText("Welcome, " + userName + "!");
+        } else {
+            textview.setText("Welcome, unknown!");
+        }
 
         // Set up the drawer toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,6 +142,8 @@ public class PatiendDashboard extends AppCompatActivity {
             startActivity(new Intent(PatiendDashboard.this, PatientViewsAppointments.class));
         }else if(itemId == R.id.menuItemMedicalHistory){
             startActivity(new Intent(PatiendDashboard.this, PatientMedicalHistory.class));
+        }else if(itemId == R.id.menuItemSwitch){
+            startActivity(new Intent(PatiendDashboard.this, MyPatient.class));
         }
         drawerLayout.closeDrawer(Gravity.LEFT);
     }
@@ -142,6 +177,42 @@ public class PatiendDashboard extends AppCompatActivity {
             contactNumber.setText(email);
         }
     }
+
+    private void fetchAllAppointmentsFromFirestore() {
+        // Initialize Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Reference to the "appointments" collection
+        CollectionReference appointmentsRef = db.collection("appointments");
+
+        appointmentsRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Appointment> fetchedAppointments = new ArrayList<>();
+            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                // Convert each document to an Appointment object
+                Appointment appointment = new Appointment();
+                appointment.setDate(document.get("AppointmentDate").toString());
+                appointment.setTime(document.get("Time").toString());
+                appointment.setPatientUid(document.get("patientUid").toString());
+                appointment.setDoctorUid(document.get("DoctorId").toString());
+                appointment.setDoctorName(document.get("DoctorName").toString());
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                String currentUid = currentUser.getUid();
+                if (appointment != null && appointment.getPatientUid().equals("sample")) {
+                    fetchedAppointments.add(appointment);
+                }
+            }
+
+            // Update the adapter with the list of today's appointments
+            appAdapter.setAppointmentList(fetchedAppointments);
+            appAdapter.notifyDataSetChanged();
+
+
+        }).addOnFailureListener(e -> {
+            String errorMessage = "Failed to fetch appointments from Firestore. Please try again later.";
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        });
+    }
+
 }
 
 

@@ -11,7 +11,10 @@
         android:id="@+id/menuItemAppointments"
         android:icon="@drawable/baseline_person_3_24"
         android:title="My Appointments"/>
-
+    <item
+        android:id="@+id/menuItemSwitch"
+        android:icon="@drawable/baseline_cameraswitch_24"
+        android:title="Switch to Doctor"/>
     <item
         android:id="@+id/menuItemLogout"
         android:icon="@drawable/baseline_exit_to_app_24"

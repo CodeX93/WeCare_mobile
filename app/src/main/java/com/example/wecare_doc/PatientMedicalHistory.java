@@ -141,6 +141,8 @@ public class PatientMedicalHistory extends AppCompatActivity {
             startActivity(new Intent(PatientMedicalHistory.this, PatientViewsAppointments.class));
         } else if (itemId == R.id.menuItemMedicalHistory) {
             // You are already in the Medical History activity, no need to navigate
+        }else if(itemId == R.id.menuItemSwitch){
+            startActivity(new Intent(PatientMedicalHistory.this, MyPatient.class));
         }
         drawerLayout.closeDrawer(Gravity.LEFT);
     }

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,11 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -53,6 +56,39 @@ public class PatientBookAppointment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_book_appointment);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.menu_home) {
+                            // Switch to Home Fragment or Activity
+                            // Example: replaceFragment(new HomeFragment());
+                            Intent intent = new Intent(PatientBookAppointment.this, PatiendDashboard.class);
+                            startActivity(intent);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_profile) {
+                            // Switch to Profile Fragment or Activity
+                            // Example: replaceFragment(new ProfileFragment());
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_calendar) {
+                            // Switch to Calendar Fragment or Activity
+                            // Example: replaceFragment(new CalendarFragment());
+                            Intent intent = new Intent(PatientBookAppointment.this, PatientViewsAppointments.class);
+                            startActivity(intent);
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.menu_notification) {
+                            // Switch to Notification Fragment or Activity
+                            // Example: replaceFragment(new NotificationFragment());
+                            Intent intent = new Intent(PatientBookAppointment.this, PatientNotificationScreen.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
 
         doctorName=findViewById(R.id.doctorName);
         doctorSpeciality=findViewById(R.id.doctorSpeciality);
@@ -120,7 +156,7 @@ public class PatientBookAppointment extends AppCompatActivity {
         appointmentData.put("Complain", complain);
         appointmentData.put("DoctorId",appointment.getDoctorUid() );
         //appointmentData.put("PatientId",appointment.getPatientUid() );
-        appointmentData.put("PatientId","sample");
+        appointmentData.put("patientUid","sample");
         appointmentData.put("Status","Confirmed");
         appointmentData.put("Timestamp", System.currentTimeMillis());
         appointmentData.put("id", generateRandomId());
@@ -135,7 +171,11 @@ public class PatientBookAppointment extends AppCompatActivity {
                     // Handle success, e.g., show a success message
                     Toast.makeText(this, "Appointment booked successfully", Toast.LENGTH_SHORT).show();
 
-                    sendNotification();
+                    try {
+                        sendNotification();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     Intent intent=new Intent(this, PatientAppointmentConfirmation.class);
                     startActivity(intent);
@@ -255,7 +295,7 @@ public class PatientBookAppointment extends AppCompatActivity {
         selectTime.setText(sdf.format(selectedTime.getTime()));
     }
 
-    public static void sendNotification(){
+    public static void sendNotification() throws JSONException {
 
         JSONObject object = new JSONObject();
 
@@ -268,7 +308,7 @@ public class PatientBookAppointment extends AppCompatActivity {
 
         object.put("notification", notfObject);
         object.put("data", dataObject);
-        object.put("to", "fcmtoken");
+        object.put("to", "eoC50vQjTLa9yabxRItgFE:APA91bHnAAmjK6yogZv9la6xkbzHlqkFpr7jff8wh8eIpXvFA-oLM31OlnLk97S9y_Dh_hskbYorj9eUNGwC0E42kk9fEyDCnZQeFjeW5WjuMRaipOX8_dNEYCx7snmEbcd3_UaTdVjX");
 
         callApi(object);
 
