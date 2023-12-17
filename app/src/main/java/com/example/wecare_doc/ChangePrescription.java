@@ -1,81 +1,111 @@
 package com.example.wecare_doc;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-public class ChangePrescription extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
-    @Override
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class ChangePrescription extends AppCompatActivity {
+
+    FirebaseFirestore db;
+    String Duration;
+    EditText MedName,DosageIntake;
+    Spinner DurationChooser;
+    Button Update_Btn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_prescription);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        setContentView(R.layout.edit_prescription_record);
+        db = FirebaseFirestore.getInstance();
 
-        // to make the Navigation drawer icon always appear on the action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MedName = findViewById(R.id.MedicineName);
+        DurationChooser = findViewById(R.id.Duration_Chooser);
+        DosageIntake = findViewById(R.id.DosageIntake);
+        Update_Btn = findViewById(R.id.updatePrescription);
 
+        Intent intent = getIntent();
+        String medName = intent.getStringExtra("MedName");
+        String Dosage = intent.getStringExtra("Dosage");
+
+        String PatientEmail = intent.getStringExtra("PatEmail");
+        String Date = intent.getStringExtra("ApptDate");
+
+        MedName.setText(medName);
+
+        DosageIntake.setText(Dosage);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.medicience_duration, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        DurationChooser.setAdapter(adapter);
+
+        DurationChooser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 Duration = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Update_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!medName.isEmpty()) {
+                    Log.d("PatientE",PatientEmail);
+                    Log.d("PatientM",MedName.getText().toString());
+                    Log.d("PatientD",DosageIntake.getText().toString());
+                    Log.d("PatientDu",Duration);
+                    updatePrescription(PatientEmail, MedName.getText().toString(), DosageIntake.getText().toString(), Duration, Date.toString());
+
+                }
+            }
+
+            private void updatePrescription(String patientEmail, String medName, String dosage, String duration, String date) {
+                db.collection("Prescription")
+                        .whereEqualTo("PatientEmail", patientEmail) // Make sure the field name matches your Firestore field
+                        .whereEqualTo("Date", date)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    // Prepare the nested Medicine map
+                                    Map<String, Object> medicineUpdate = new HashMap<>();
+                                    medicineUpdate.put("Medicine.Name", medName); // Use dot notation for nested fields
+                                    medicineUpdate.put("Medicine.Dosage", dosage);
+                                    medicineUpdate.put("Medicine.Duration", duration);
+
+                                    // Update the document
+                                    db.collection("Prescription").document(documentSnapshot.getId())
+                                            .update(medicineUpdate)
+                                            .addOnSuccessListener(aVoid -> Toast.makeText(ChangePrescription.this, "Prescription Updated Successfully", Toast.LENGTH_LONG).show())
+                                            .addOnFailureListener(e -> Toast.makeText(ChangePrescription.this, "Error updating prescription", Toast.LENGTH_LONG).show());
+
+                                startActivity(new Intent(ChangePrescription.this, MyPatient.class));
+                                }
+                            } else {
+                                Toast.makeText(ChangePrescription.this, "No matching document found", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(ChangePrescription.this, "Error finding prescription", Toast.LENGTH_LONG).show());
+            }
+
+        });
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_patients) {
-            Intent intent = new Intent(this, MyPatient.class);
-            startActivity(intent);
-            finish();
-        } else if (id == R.id.nav_appointments) {
-
-//            Intent intent = new Intent(this, app.class);
-//            startActivity(intent);
-
-        } else if (id == R.id.nav_Chats)
-
-        {
-            Intent intent = new Intent(this, MyChat.class);
-            startActivity(intent);
-            finish();
-
-        } else if (id == R.id.nav_change_slots) {
-            Intent intent = new Intent(this, MyAvailableSlots.class);
-            startActivity(intent);
-            finish();
-        } else if (id == R.id.nav_settings) {
-//            Intent intent = new Intent(this, MyS.class);
-//            startActivity(intent);
-        }
-
-        // Close the navigation drawer
-        DrawerLayout drawer = findViewById(R.id.my_drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-
 }

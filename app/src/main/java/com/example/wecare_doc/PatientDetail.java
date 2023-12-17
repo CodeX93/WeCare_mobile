@@ -13,8 +13,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +36,9 @@ public class PatientDetail extends AppCompatActivity implements NavigationView.O
     private RecyclerView recyclerView;
     private AdapterPrescription PrescriptionAdapter;
     private ArrayList<Prescription> prescriptionlist;
+    Button EditPrescriptionBtn;
+    Prescription tempPrescription;
+    String Medname,Dosage,Duration,Email,Date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,25 @@ public class PatientDetail extends AppCompatActivity implements NavigationView.O
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        EditPrescriptionBtn=findViewById(R.id.Edit_Prescription_Btn);
+
+        EditPrescriptionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PatientDetail.this,ChangePrescription.class);
+//                Log.d("PresData",tempPrescription.toString());
+                intent.putExtra("MedName",Medname);
+                intent.putExtra("Dosage",Dosage);
+                intent.putExtra("Duration",Duration);
+                intent.putExtra("PatEmail",Email);
+                intent.putExtra("ApptDate",Date);
+                startActivity(intent);
+
+            }
+        });
+
+
+
     }
 
     private void setDataFromIntent(Intent intent) {
@@ -84,7 +109,7 @@ public class PatientDetail extends AppCompatActivity implements NavigationView.O
         String PatientComplain = intent.getStringExtra("Patient_Complain");
         String PatientEmail=intent.getStringExtra("patient_email");
         String AppointedDate=intent.getStringExtra("appt_date");
-
+        Date=AppointedDate;
 
 
         patientName.setText(PatientName);
@@ -119,6 +144,12 @@ public class PatientDetail extends AppCompatActivity implements NavigationView.O
                                 String dosage = medicine.get("Dosage");
                                 String duration = medicine.get("Duration");
 
+
+                                Medname=name;
+                                Dosage=dosage;
+                                Duration=duration;
+                                Email=patientEmail;
+
                                 Map<String, String> medicineDetails = new HashMap<>();
                                 medicineDetails.put("Name", name);
                                 medicineDetails.put("Dosage", dosage);
@@ -127,6 +158,7 @@ public class PatientDetail extends AppCompatActivity implements NavigationView.O
 
 
                                 Prescription prescription = new Prescription(medicineDetails, date, patientEmail, patientEmail);
+                                tempPrescription=prescription;
                                 prescriptionlist.add(prescription);
                             } else {
                                 Log.d("PrescriptionError", "Medicine details are null for document: " + document.getId());

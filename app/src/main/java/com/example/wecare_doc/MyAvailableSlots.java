@@ -12,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,13 +32,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MyAvailableSlots extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public DrawerLayout drawerLayout;
-    Button buttonDate, oldbuttonTime, newbuttonTime;
+    Button buttonDate, oldbuttonTime, newbuttonTime,updateTimeSlotBtn;
     private RecyclerView recyclerView;
+    private String oldTimeSelected,newTimeSelected,newDurationPeriod;
+    FirebaseFirestore db;
     private AdapterAvailableSlot adapterAvailableSlot;
     private ArrayList<TimeSlots> timeSlotsArrayList;
+    private int hour, minute;
     FirebaseFirestore DB;
     String queryDate, DoctorId;
     Spinner newDuration;
@@ -50,9 +57,10 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_my_available_slots);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        db = FirebaseFirestore.getInstance();
         drawerLayout = findViewById(R.id.my_drawer_layout);
         newDuration = findViewById(R.id.new_slot_duration);
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -68,29 +76,18 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
         buttonDate = findViewById(R.id.DateChooser_button);
         oldbuttonTime = findViewById(R.id.button_time);
         newbuttonTime = findViewById(R.id.button_newtime);
+        updateTimeSlotBtn=findViewById(R.id.UpadateAppointSlot_Btn);
         DoctorId = DB.collection("doctor").document().getId();
 
-        buttonDate.setOnClickListener(v -> showDatePickerDialog());
-
-        oldbuttonTime.setOnClickListener(view -> showTimePickerDialog());
-
-        newbuttonTime.setOnClickListener(view -> showTimePickerDialog());
-
-        // Additional logic to add a new time slot
-        newbuttonTime.setOnClickListener(view -> {
-            String selectedTime = newbuttonTime.getText().toString();
-            String duration = "01:00"; // example duration
-            addNewTimeSlot(DoctorId, queryDate, selectedTime, duration);
-        });
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.duration_time, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newDuration.setAdapter(adapter);
+
+
         newDuration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
+                newDurationPeriod = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -98,22 +95,43 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
 
             }
         });
+
+
+        buttonDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
+
+        updateTimeSlotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String oldTime=oldTimeSelected;
+                String newTime=newTimeSelected;
+                String duration=newDurationPeriod;
+                String endTime=calculateFinalTime(newTime,duration);
+                String date=queryDate;
+                String DoctorId="idisidsadsadsadqwe";
+                Log.d("TimeSlotData",""+newTime+" "+duration+" "+endTime+" "+date+" "+DoctorId);
+                TimeSlots timeSlots=new TimeSlots(date,newTime,duration,"false",DoctorId,endTime);
+                db.collection("AvailableSlots").add(timeSlots)
+                        .addOnSuccessListener(documentReference -> Toast.makeText(MyAvailableSlots.this,"SLots updated",Toast.LENGTH_LONG).show())
+                        .addOnFailureListener(e->Log.d("failing","Slots not updated"));
+            }
+        });
+
+
+
+
     }
 
 
 
-    private void showTimePickerDialog() {
-        final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(MyAvailableSlots.this,
-                (view, hourOfDay, minute1) -> {
-                    String selectedTime = hourOfDay + ":" + minute1;
-                    newbuttonTime.setText(selectedTime);
-                }, hour, minute, true);
-        timePickerDialog.show();
-    }
+
 
     private void showDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
@@ -126,18 +144,79 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
                     String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
                     buttonDate.setText(selectedDate);
                     queryDate = selectedDate;
-                    DoctorId = "current_doctor_id";  // Replace with actual logic to get the doctor's ID
+                    DoctorId = "idisidsadsadsadqwe";  // Replace with actual logic to get the doctor's ID
                     fetchTimeSlots(DoctorId, queryDate);
                 }, year, month, day);
         datePickerDialog.show();
+
+
+
+
+
+    oldbuttonTime.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OldshowTimePickerDialog();
+        }
+    });
+
+    newbuttonTime.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            NewshowTimePickerDialog();
+        }
+    });
+
+
     }
+
+
+    private void OldshowTimePickerDialog() {
+        // Use the current time as the default values for the picker
+
+        final Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+
+        // Create a new instance of TimePickerDialog and return it
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, selectedHour, selectedMinute) -> {
+                    hour = selectedHour;
+                    minute = selectedMinute;
+                    String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+                    oldTimeSelected=formattedTime;
+                }, hour, minute, DateFormat.is24HourFormat(this));
+        timePickerDialog.show();
+    }
+    private void NewshowTimePickerDialog() {
+        // Use the current time as the default values for the picker
+
+        final Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+
+        // Create a new instance of TimePickerDialog and return it
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, selectedHour, selectedMinute) -> {
+                    hour = selectedHour;
+                    minute = selectedMinute;
+                    String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+                    newTimeSelected=formattedTime;
+                }, hour, minute, DateFormat.is24HourFormat(this));
+        timePickerDialog.show();
+    }
+
+
+
+
 
     // Fetch booked time slots
     private void fetchTimeSlots(String doctorId, String date) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("AvailableSlots")
-                .whereEqualTo("DoctorId", doctorId)
+                .whereEqualTo("doctorId", doctorId)
                 .whereEqualTo("Date", date)
+                .whereEqualTo("booked", "true")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -151,6 +230,38 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
                         Log.d("MyAvailableSlots", "Error getting documents: ", task.getException());
                     }
                 });
+    }
+
+    public static String calculateFinalTime(String startTime, String duration) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        try {
+            Date start = dateFormat.parse(startTime);
+
+            // Check if duration is just in minutes
+            int durationHours = 0;
+            int durationMinutes;
+            if (duration.contains(":")) {
+                String[] durationParts = duration.split(":");
+                if (durationParts.length < 2) {
+                    throw new IllegalArgumentException("Invalid duration format");
+                }
+                durationHours = Integer.parseInt(durationParts[0]);
+                durationMinutes = Integer.parseInt(durationParts[1]);
+            } else {
+                // Assuming duration is just minutes
+                durationMinutes = Integer.parseInt(duration);
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(start);
+            calendar.add(Calendar.HOUR_OF_DAY, durationHours);
+            calendar.add(Calendar.MINUTE, durationMinutes);
+
+            return dateFormat.format(calendar.getTime());
+        } catch (ParseException | IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -199,77 +310,7 @@ public class MyAvailableSlots extends AppCompatActivity implements NavigationVie
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void addNewTimeSlot(String doctorId, String date, String startTime, String duration) {
-        // Convert startTime and duration to a format that can be compared
-        Calendar startCal = convertToCalendar(startTime);
-        Calendar endCal = (Calendar) startCal.clone();
-        addDurationToCalendar(endCal, duration);
-        String endTime = null;
 
-        // Check if the slot is available
-        boolean isSlotAvailable = true;
-        for (TimeSlots bookedSlot : timeSlotsArrayList) {
-            Calendar bookedStart = convertToCalendar(bookedSlot.getStartTime());
-            Calendar bookedEnd = convertToCalendar(bookedSlot.getEndTime());
-
-            if (isTimeSlotOverlap(startCal, endCal, bookedStart, bookedEnd)) {
-                isSlotAvailable = false;
-                endTime=bookedEnd.toString();
-                break;
-            }
-        }
-
-        if (isSlotAvailable) {
-            // Slot is available, add it to Firestore
-            TimeSlots newSlot = new TimeSlots(doctorId, date, startTime, calendarToString(endCal), "",calculateEndTime(startTime,duration));
-            DB.collection("AvailableSlots").add(newSlot)
-                    .addOnSuccessListener(documentReference -> Log.d("AddSlot", "Slot added with ID: " + documentReference.getId()))
-                    .addOnFailureListener(e -> Log.w("AddSlot", "Error adding slot", e));
-        } else {
-            Log.d("AddSlot", "Time slot is not available");
-        }
-    }
-
-    private Calendar convertToCalendar(String time) {
-        String[] parts = time.split(":");
-        int hour = Integer.parseInt(parts[0]);
-        int minutes = Integer.parseInt(parts[1]);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        return calendar;
-    }
-    public static String calculateEndTime(String startTime, String duration) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dateFormat.parse(startTime));
-
-            String[] durationParts = duration.split(":");
-            int hoursToAdd = Integer.parseInt(durationParts[0]);
-            int minutesToAdd = Integer.parseInt(durationParts[1]);
-
-            calendar.add(Calendar.HOUR_OF_DAY, hoursToAdd);
-            calendar.add(Calendar.MINUTE, minutesToAdd);
-
-            return dateFormat.format(calendar.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private void addDurationToCalendar(Calendar calendar, String duration) {
-        String[] parts = duration.split(":");
-        int hours = Integer.parseInt(parts[0]);
-        int minutes = Integer.parseInt(parts[1]);
-        calendar.add(Calendar.HOUR_OF_DAY, hours);
-        calendar.add(Calendar.MINUTE, minutes);
-    }
-
-    private boolean isTimeSlotOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
-        return start1.before(end2) && start2.before(end1);
-    }
 
     private String calendarToString(Calendar calendar) {
         return String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));

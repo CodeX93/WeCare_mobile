@@ -6,7 +6,11 @@
     <string name="nav_close">Close</string>
 
 
+    <string-array name="duration_time">
+
+
     <string-array name="duration_time" >
+
         <item>Select Duration (min)</item>
         <item>10</item>
         <item>15</item>
@@ -30,6 +34,26 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="select_report">Sugar</string>
+
+    <string-array name="medicience_duration">
+        <item>Select Duration (days)</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>15</item>
+        <item>21</item>
+        <item>28</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+
+    </string-array>
+
 
 </resources>
 

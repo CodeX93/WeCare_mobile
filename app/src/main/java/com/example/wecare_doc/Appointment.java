@@ -4,19 +4,31 @@ import java.io.Serializable;
 
 public class Appointment implements Serializable {
 
-    public String date, time, doctorUid, patientUid, doctorName;
+    public String date, time, doctorUid, patientUid, doctorName, complain;
 
-
-
-    public Appointment(){
+    public Appointment() {
 
     }
-    public Appointment(String date, String time, String doctorUid, String patientUid, String doctorName) {
+
+    public String getComplain() {
+        return complain;
+    }
+
+    public void setComplain(String complain) {
+        complain = complain;
+    }
+
+    public Appointment(String date, String time, String doctorUid, String patientUid, String doctorName,
+            String complain) {
+
         this.date = date;
         this.time = time;
         this.doctorUid = doctorUid;
         this.patientUid = patientUid;
-        this.doctorName=doctorName;
+        this.doctorName = doctorName;
+
+        this.complain = complain;
+
     }
 
     public String getDoctorName() {
